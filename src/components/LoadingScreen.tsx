@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 export default function LoadingScreen() {
@@ -37,7 +36,7 @@ export default function LoadingScreen() {
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mt-4">
+        <p className="text-sm text-white dark:text-white mt-4">
           {progress < 100 ? `Loading... ${Math.round(progress)}%` : "Ready!"}
         </p>
       </div>

@@ -49,7 +49,7 @@ export default function AllClients() {
     : clients.filter(client => client.category === selectedCategory);
 
   return (
-    <div className="bg-white dark:bg-gray-950 min-h-screen">
+    <div className="bg-white dark:bg-[#121212] min-h-screen overflow-x-hidden">
       <Header />
 
       <AnimationEffect animationType="fadeIn" delay={100}>
@@ -58,12 +58,12 @@ export default function AllClients() {
             <div className="text-center mb-16">
               <h1 className={`text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent ${
                 language === 'ar' ? 'font-arabic' : ''
-              }`}>
+              } dark:text-white`}>
                 {language === 'ar' ? 'عملاؤنا' : 'Our Clients'}
               </h1>
-              <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto ${
+              <p className={`text-xl text-gray-900 dark:text-white max-w-3xl mx-auto ${
                 language === 'ar' ? 'font-arabic text-right' : ''
-              }`}>
+              } dark:text-white`}>
                 {language === 'ar'
                   ? 'موثوق بنا من قبل الشركات الرائدة في مختلف الصناعات حول العالم.'
                   : 'Trusted by leading companies across various industries worldwide'
@@ -88,8 +88,8 @@ export default function AllClients() {
                     language === 'ar' ? 'font-arabic' : ''
                   } ${
                     selectedCategory === category.id
-                      ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg'
-                      : 'hover:bg-primary/10'
+                      ? 'bg-gradient-to-r from-primary to-accent !text-white shadow-lg dark:!text-white border border-white/20'
+                      :   'hover:bg-primary/10 text-primary dark:bg-white dark:!text-gray-900 dark:hover:bg-gray-100'
                   }`}
                 >
                   {category.name}
@@ -109,18 +109,18 @@ export default function AllClients() {
                         className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
                       />
                     </div>
-                    <h3 className={`text-xl font-bold text-center mb-3 ${language === 'ar' ? 'font-arabic' : ''}`}>
+                    <h3 className={`text-xl font-bold text-center mb-3 ${language === 'ar' ? 'font-arabic' : ''} dark:text-white`}>
                       {client.name}
                     </h3>
-                    <p className={`text-gray-600 dark:text-gray-300 text-center ${
+                    <p className={`text-gray-900 dark:text-white text-center ${
                       language === 'ar' ? 'font-arabic text-right' : ''
-                    }`}>
+                    } dark:text-white`}>
                       {client.description}
                     </p>
                     <div className="mt-6 text-center">
                       <span className={`inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium ${
                         language === 'ar' ? 'font-arabic' : ''
-                      }`}>
+                      } dark:text-white`}>
                         {categories.find(cat => cat.id === client.category)?.name}
                       </span>
                     </div>
@@ -131,7 +131,7 @@ export default function AllClients() {
 
             {filteredClients.length === 0 && (
               <div className="text-center py-16">
-                <p className={`text-gray-500 text-lg ${language === 'ar' ? 'font-arabic' : ''}`}>
+                <p className={`text-gray-900 dark:text-white text-lg ${language === 'ar' ? 'font-arabic' : ''} dark:text-white`}>
                   {language === 'ar' ? 'لا يوجد عملاء في هذه الفئة.' : 'No clients found in this category'}
                 </p>
               </div>

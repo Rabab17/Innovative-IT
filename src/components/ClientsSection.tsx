@@ -29,25 +29,25 @@ export default function ClientsSection() {
   }, [language]);
 
   const clients = [
-    { name: "Microsoft", logo: logo1 },
-    { name: "Google", logo: logo2 },
-    { name: "Apple", logo: logo3 },
-    { name: "Amazon", logo: logo4 },
-    { name: "Tesla", logo: logo5 },
-    { name: "Netflix", logo: logo6 },
-    { name: "IBM", logo: logo7 },
-    { name: "Oracle", logo: logo8 },
+    { name: "الأمراء للسجاد", logo: logo1 },
+    { name: "الحرمين", logo: logo2 },
+    { name: "روزي كاربت", logo: logo3 },
+    { name: "Hardees", logo: logo4 },
+    { name: "Americana", logo: logo5 },
+    { name: "DC Comics", logo: logo6 },
+    { name: "Masar Logo", logo: logo7 },
+    { name: "ميرميد", logo: logo8 },
   ];
 
   return (
-    <section id="clients" className="section-padding bg-white-50 dark:bg-gray-900">
+    <section id="clients" className="section-padding bg-background dark:bg-dark-background">
       <div
         className="container mx-auto px-4"
         style={{ direction: language === "ar" ? "rtl" : "ltr" }}
       >
-        <h2 className="section-title mb-12">{t("clients.title")}</h2>
+        <h2 className="section-title mb-12 text-foreground dark:text-dark-foreground">{t("clients.title")}</h2>
         <div className="mb-8 text-center max-w-2xl mx-auto">
-          <p>{t("clients.subtitle")}</p>
+          <p className="text-secondary dark:text-dark-secondary">{t("clients.subtitle")}</p>
         </div>
 
         <Swiper

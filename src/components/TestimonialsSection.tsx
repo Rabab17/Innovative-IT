@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { UserCircle } from "lucide-react";
 // import { UserCircleIcon } from '@heroicons/react/24/solid'; // إذا كنتِ تريدين استخدام أيقونة بدلاً من الصور
 
 interface Testimonial {
@@ -37,7 +38,7 @@ export default function TestimonialsSection() {
       name: "Ahmed Hosam (أحمد حسام)",
       position: language === 'ar' ? "مدير تسويق" : "Marketing Manager", // يجب أن تكون مترجمة هنا أيضًا
       company: language === 'ar' ? "شركة النيل للتكنولوجيا" : "Nile Technology Company", // يجب أن تكون مترجمة هنا أيضًا
-      // image: "https://via.placeholder.com/100x100?text=AH", // أزيلي هذا السطر إذا لم تريدي أي صور
+      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
     },
     {
       id: 2,
@@ -48,7 +49,7 @@ export default function TestimonialsSection() {
       name: "Fatma Ali (فاطمة علي)",
       position: language === 'ar' ? "مدير مشروع" : "Project Manager", // يجب أن تكون مترجمة هنا أيضًا
       company: language === 'ar' ? "حلول الأفق الرقمي" : "Digital Horizon Solutions", // يجب أن تكون مترجمة هنا أيضًا
-      // image: "https://via.placeholder.com/100x100?text=FA",
+      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
     },
     {
       id: 3,
@@ -59,7 +60,7 @@ export default function TestimonialsSection() {
       name: "Mohamed El-Sayed (محمد السيد)",
       position: language === 'ar' ? "الرئيس التنفيذي" : "CEO", // يجب أن تكون مترجمة هنا أيضًا
       company: language === 'ar' ? "شركات النمو الرقمي" : "Digital Growth Companies", // يجب أن تكون مترجمة هنا أيضًا
-      // image: "https://via.placeholder.com/100x100?text=MS",
+      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
     },
     {
       id: 4,
@@ -70,7 +71,7 @@ export default function TestimonialsSection() {
       name: "Nour Gamil (نور جميل)",
       position: language === 'ar' ? "مدير إبداعي" : "Creative Director", // يجب أن تكون مترجمة هنا أيضًا
       company: language === 'ar' ? "وكالة الإبداع المصري" : "Egyptian Creative Agency", // يجب أن تكون مترجمة هنا أيضًا
-      // image: "https://via.placeholder.com/100x100?text=NG",
+      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
     },
   ];
 
@@ -103,9 +104,9 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section id="testimonials" className="section-padding bg-gradient-to-r from-primary/10 to-accent/10 dark:from-primary/5 dark:to-accent/5">
+    <section id="testimonials" className="section-padding bg-background dark:bg-dark-background">
       <div className="container mx-auto px-4">
-        <h2 className={`section-title mb-12 ${language === 'ar' ? 'font-arabic' : ''}`}>
+        <h2 className={`section-title mb-12 ${language === 'ar' ? 'font-arabic' : ''} text-foreground dark:text-dark-foreground`}>
           {t('testimonials.title')}
         </h2>
 
@@ -121,14 +122,14 @@ export default function TestimonialsSection() {
                   key={testimonial.id}
                   className="w-full flex-shrink-0 px-4"
                 >
-                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 md:p-10">
+                  <div className="bg-card dark:bg-dark-card rounded-lg shadow-lg p-8 md:p-10">
                     <div className="flex flex-col items-center">
                       <div className="relative mb-6">
-                        <div className="absolute -top-4 -left-4 w-10 h-10 text-5xl text-primary opacity-50">"</div>
-                        <p className={`text-lg md:text-xl italic text-center relative z-10 ${language === 'ar' ? 'font-arabic leading-relaxed' : ''}`}>
+                        <div className="absolute -top-4 -left-4 w-10 h-10 text-5xl text-primary opacity-90">"</div>
+                        <p className={`text-lg md:text-xl italic text-center relative z-10 text-foreground dark:text-dark-foreground ${language === 'ar' ? 'font-arabic leading-relaxed' : ''}`}>
                           {testimonial.quote}
                         </p>
-                        <div className="absolute -bottom-4 -right-4 w-10 h-10 text-5xl text-primary opacity-50 rotate-180">"</div>
+                        <div className="absolute -bottom-4 -right-4 w-10 h-10 text-5xl text-primary opacity-90 rotate-180">"</div>
                       </div>
 
                       <div className="flex flex-col items-center mt-6">
@@ -138,15 +139,17 @@ export default function TestimonialsSection() {
                             </div> */}
 
                         {/* الخيار 2: استخدام أيقونة عامة (مثل أيقونة شخص) بدلاً من الصور */}
-                        {/* <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary mb-3 flex items-center justify-center">
-                              <UserCircleIcon className="w-full h-full text-gray-400 dark:text-gray-500" />
-                            </div> */}
-                        <h4 className={`font-bold text-lg ${language === 'ar' ? 'font-arabic' : ''}`}>
-                          {getLocalizedName(testimonial.name, language)}
-                        </h4>
-                        <p className={`text-sm text-gray-600 dark:text-gray-400 ${language === 'ar' ? 'font-arabic' : ''}`}>
-                          {testimonial.position}, {testimonial.company}
-                        </p>
+                      <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary mb-3 flex items-center justify-center hidden sm:flex">
+  <UserCircle className="w-full h-full text-white dark:text-white" />
+</div>
+
+                       <h4 className={`font-bold text-lg text-foreground dark:text-dark-foreground ${language === 'ar' ? 'font-arabic' : ''} hidden sm:block`}>
+  {getLocalizedName(testimonial.name, language)}
+</h4>
+<p className={`text-sm text-secondary dark:text-dark-secondary ${language === 'ar' ? 'font-arabic' : ''} hidden sm:block`}>
+  {testimonial.position}, {testimonial.company}
+</p>
+
                       </div>
                     </div>
                   </div>

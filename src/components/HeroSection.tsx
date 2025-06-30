@@ -38,12 +38,12 @@ export default function HeroSection() {
     >
       {/* Enhanced Background with parallax */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-black/80 to-blue-800/90 z-10"></div>
-        {/* <img
-          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3000"
-          alt="Digital background"
-          className="w-full h-full object-cover transform scale-105 animate-slow-zoom parallax"
-        /> */}
+        <img
+          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+          alt="Gulf IT Business Office"
+          className="w-full h-full object-cover scale-105 animate-slow-zoom parallax"
+        />
+        <div className="absolute inset-0 bg-black/70 dark:bg-black/80 z-10"></div>
 
         {/* Enhanced floating background circles */}
         <div className="absolute inset-0 overflow-hidden">
@@ -68,7 +68,7 @@ export default function HeroSection() {
           {Array.from({ length: 12 }).map((_, i) => (
             <div
               key={i}
-              className="absolute w-3 h-3 bg-accent/30 rounded-full animate-float"
+              className="absolute w-3 h-3 bg-accent/50 dark:bg-accent/30 rounded-full animate-float"
               style={{
                 left: `${10 + i * 8}%`,
                 top: `${20 + i * 6}%`,
@@ -88,30 +88,30 @@ export default function HeroSection() {
 
         {/* Company Logo/Badge */}
         <div className="mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-          <span className="inline-block bg-gradient-to-r from-accent to-yellow-400 text-gray-900 px-6 py-2 rounded-full text-sm font-bold tracking-wide">
+          <span className="inline-block bg-gradient-to-r from-accent to-yellow-400 text-white px-6 py-2 rounded-full text-sm font-bold tracking-wide shadow-lg">
             {language === "ar"
-              ? "شركة رائدة في الابتكار الرقمي" // Changed for conciseness and better flow
+              ? "شركة رائدة في الابتكار الرقمي"
               : "Leading Digital Innovation Company"}
           </span>
         </div>
 
         <h1
-          className={`text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up text-glow ${
+          className={`text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up text-white drop-shadow-2xl ${
             language === "ar" ? "font-arabic leading-tight" : ""
           }`}
           style={{ animationDelay: "0.3s" }}
         >
           {language === "ar" ? (
             <>
-              <span className="block text-accent mb-2">بوابة الأعمال الإلكترونية</span> {/* Added hamza */}
-              <span className="block bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              <span className="block text-accent mb-2 drop-shadow-lg">التجارب المبتكرة لتقنية المعلومات</span>
+              <span className="block text-white drop-shadow-lg">
                 تمكين الشركات من خلال الابتكار الرقمي
               </span>
             </>
           ) : (
             <>
-              <span className="block text-accent mb-2">E-Business Gate</span>
-              <span className="block bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              <span className="block text-accent mb-2 drop-shadow-lg">Innovative IT Experiences</span>
+              <span className="block text-white drop-shadow-lg">
                 Empowering Businesses through Digital Innovation
               </span>
             </>
@@ -119,7 +119,7 @@ export default function HeroSection() {
         </h1>
 
         <h2
-          className={`text-xl md:text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto animate-fade-in-up opacity-90 font-light ${
+          className={`text-xl md:text-2xl lg:text-3xl mb-12 max-w-4xl mx-auto animate-fade-in-up text-white/95 font-light drop-shadow-lg ${
             language === "ar" ? "font-arabic leading-relaxed" : ""
           }`}
           style={{ animationDelay: "0.5s" }}
@@ -135,10 +135,10 @@ export default function HeroSection() {
         >
           <Button
             onClick={scrollToServices}
-            className="group shimmer-button bg-accent hover:bg-yellow-400 text-gray-900 font-bold px-8 py-6 text-lg rounded-full animate-fade-in-up transition-all duration-300 hover:scale-105 hover:shadow-2xl transform-gpu min-w-[200px]"
+            className="group shimmer-button bg-accent hover:bg-yellow-400 text-white font-bold px-8 py-6 text-lg rounded-full animate-fade-in-up transition-all duration-300 hover:scale-105 hover:shadow-2xl transform-gpu min-w-[200px] shadow-lg"
             style={{ animationDelay: "0.7s" }}
           >
-            {language === "ar" ? "اطلب خدمة الآن" : t("hero.cta")} {/* Added "الآن" for better flow */}
+            {language === "ar" ? "اطلب خدمة الآن" : t("hero.cta")}
             <ArrowRight
               className={`w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 ${
                 language === "ar" ? "rotate-180 group-hover:-translate-x-1" : ""
@@ -149,7 +149,7 @@ export default function HeroSection() {
           <Button
             onClick={downloadPortfolio}
             variant="outline"
-            className="group bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-6 text-lg rounded-full animate-fade-in-up transition-all duration-300 hover:scale-105 hover:shadow-2xl min-w-[200px]"
+            className="group bg-white/20 backdrop-blur-sm border-white/40 text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-6 text-lg rounded-full animate-fade-in-up transition-all duration-300 hover:scale-105 hover:shadow-2xl min-w-[200px] shadow-lg"
             style={{ animationDelay: "0.9s" }}
           >
             <Download
@@ -169,13 +169,13 @@ export default function HeroSection() {
           {[
             {
               icon: "🚀",
-              title: language === "ar" ? "نمو متسارع" : "Fast Growth", // Changed for better flow
-              desc: language === "ar" ? "زيادة في الأداء بنسبة 300%" : "300% Performance Boost", // Rephrased
+              title: language === "ar" ? "نمو متسارع" : "Fast Growth",
+              desc: language === "ar" ? "زيادة في الأداء بنسبة 300%" : "300% Performance Boost",
             },
             {
               icon: "🎯",
-              title: language === "ar" ? "دقة متناهية" : "Precision", // Changed for emphasis
-              desc: language === "ar" ? "حلول مصممة خصيصًا لكل عميل" : "Tailored Solutions", // Rephrased
+              title: language === "ar" ? "دقة متناهية" : "Precision",
+              desc: language === "ar" ? "حلول مصممة خصيصًا لكل عميل" : "Tailored Solutions",
             },
             {
               icon: "🏆",
@@ -185,14 +185,14 @@ export default function HeroSection() {
           ].map((feature, index) => (
             <div
               key={index}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105"
+              className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 hover:scale-105 shadow-lg"
               style={{ animationDelay: `${1.3 + index * 0.2}s` }}
             >
               <div className="text-3xl mb-3">{feature.icon}</div>
-              <h3 className={`font-bold text-lg mb-2 ${language === "ar" ? "font-arabic" : ""}`}>
+              <h3 className={`font-bold text-lg mb-2 text-white ${language === "ar" ? "font-arabic" : ""}`}>
                 {feature.title}
               </h3>
-              <p className={`text-sm opacity-80 ${language === "ar" ? "font-arabic" : ""}`}>
+              <p className={`text-sm text-white/90 ${language === "ar" ? "font-arabic" : ""}`}>
                 {feature.desc}
               </p>
             </div>
@@ -202,7 +202,7 @@ export default function HeroSection() {
         {/* Enhanced scroll indicator with bounce */}
         {/* <div className="absolute bottom-11 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
           <div className="pulse-icon cursor-pointer pt-6" onClick={scrollToServices}>
-            <div className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center bg-white/10 backdrop-blur-sm hover:bg-accent hover:text-gray-900 transition-all duration-300">
+            <div className="w-12 h-12 rounded-full border-2 border-accent flex items-center justify-center bg-white/10 backdrop-blur-sm hover:bg-accent hover:text-white transition-all duration-300">
               <svg
                 className="w-6 h-6 animate-pulse"
                 fill="none"

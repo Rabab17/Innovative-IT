@@ -1,12 +1,11 @@
-// src/components/Header.tsx
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
-import { LanguageToggle } from "./LanguageToggle"; // تأكد من المسار الصحيح
-import { useLanguage } from "@/contexts/LanguageContext"; // تأكد من المسار الصحيح
+import { LanguageToggle } from "./LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
-import logoLight from '../assets/EBG logos-01.png'; // لوجو الوضع الفاتح
-import logoDark from '../assets/EBG logos-01.png'; // لوجو الوضع الداكن
+import logoLight from '../assets/ie logo-red.png';
+import logoDark from '../assets/ie logo-red.png';
 
 interface NavItem {
   label: string;
@@ -18,7 +17,7 @@ interface NavItem {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { t, language } = useLanguage(); // استخدام t و language من useLanguage
+  const { t, language } = useLanguage();
   const location = useLocation();
 
   const [isDarkMode, setIsDarkMode] = useState(
@@ -31,7 +30,6 @@ export default function Header() {
     };
     window.addEventListener("scroll", handleScroll);
 
-    // Keep HTML lang attribute for accessibility, but DO NOT set dir="rtl"
     document.documentElement.lang = language;
 
     const observer = new MutationObserver(() => {
@@ -86,7 +84,7 @@ export default function Header() {
         className={`container mx-auto px-4 flex justify-between items-center ${
           language === "ar" ? "flex-row-reverse" : "flex-row"
         }`}
-        style={{ direction: "ltr" }} // حافظ على هذا لضمان اتجاه العناصر في الهيدر
+        style={{ direction: "ltr" }}
       >
         {/* اللوجو */}
         <div className="flex items-center gap-3">
@@ -100,7 +98,7 @@ export default function Header() {
               className="w-10 h-10 object-contain"
             />
             <span
-              className={`text-3xl font-bold ${!scrolled ? "text-[#D4AF37]" : "bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"} transition-all duration-300 ${
+              className={`text-3xl font-bold ${!scrolled ? "text-primary" : "bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"} transition-all duration-300 ${
                 language === "ar" ? "font-arabic" : ""
               }`}
             >
@@ -121,7 +119,10 @@ export default function Header() {
                       e.preventDefault();
                       handleNavClick(item.href, true);
                     }}
-                    className={`px-4 py-2 rounded-lg font-medium ${!scrolled ? "text-[#D4AF37]" : "text-gray-700 dark:text-gray-300"} hover:text-primary hover:bg-primary/10 transition-all duration-300 relative group`}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group
+                      ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
+                      hover:text-primary hover:bg-primary/10
+                    `}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {item.label}
@@ -131,7 +132,10 @@ export default function Header() {
                   <Link
                     to={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-lg font-medium ${!scrolled ? "text-[#D4AF37]" : "text-gray-700 dark:text-gray-300"} hover:text-primary hover:bg-primary/10 transition-all duration-300 relative group`}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group
+                      ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
+                      hover:text-primary hover:bg-primary/10
+                    `}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {item.label}
@@ -145,16 +149,16 @@ export default function Header() {
           {/* العناصر المساعدة */}
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <LanguageToggle />
+            <LanguageToggle /> {/* تم تعديل هذا المكون ليظهر النص ويغير لونه */}
             <a
               href="/#contact"
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick("/#contact", true);
               }}
-              className={`${!scrolled ? "bg-[#D4AF37] hover:bg-[#C5A028]" : "bg-gradient-to-r from-primary to-accent"} text-white px-6 py-2 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
+              className={`${!scrolled ? "bg-primary hover:bg-primary/90" : "bg-gradient-to-r from-primary to-accent"} text-white px-6 py-2 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
             >
-              {t("Start Project")} 
+              {t("Start Project")}
             </a>
           </div>
         </nav>
@@ -162,9 +166,9 @@ export default function Header() {
         {/* قائمة الجوال - تظهر على الجانب الأيمن دائما */}
         <div className="flex items-center gap-3 lg:hidden">
           <ThemeToggle />
-          <LanguageToggle /> {/* تم استخدام LanguageToggle هنا أيضًا */}
+          <LanguageToggle /> {/* تم تعديل هذا المكون ليظهر النص ويغير لونه */}
           <button
-            className={`p-2 ${!scrolled ? "text-[#D4AF37]" : "text-gray-600 dark:text-gray-300"} transition-all duration-300 hover:scale-110 hover:bg-primary/10 rounded-lg`}
+            className={`p-2 ${!scrolled ? "text-primary" : "text-foreground"} transition-all duration-300 hover:scale-110 hover:bg-primary/10 rounded-lg`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -189,7 +193,10 @@ export default function Header() {
                     e.preventDefault();
                     handleNavClick(item.href, true);
                   }}
-                  className={`block px-4 py-3 rounded-lg font-medium ${!scrolled ? "text-[#D4AF37]" : "text-gray-700 dark:text-gray-300"} hover:bg-primary/10 hover:text-primary transition-all duration-300`}
+                  className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300
+                    ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
+                    hover:bg-primary/10 hover:text-primary
+                  `}
                   style={{
                     animationDelay: `${index * 50}ms`,
                     transform: mobileMenuOpen
@@ -204,7 +211,10 @@ export default function Header() {
                 <Link
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block px-4 py-3 rounded-lg font-medium ${!scrolled ? "text-[#D4AF37]" : "text-gray-700 dark:text-gray-300"} hover:bg-primary/10 hover:text-primary transition-all duration-300`}
+                  className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300
+                    ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
+                    hover:bg-primary/10 hover:text-primary
+                  `}
                   style={{
                     animationDelay: `${index * 50}ms`,
                     transform: mobileMenuOpen
@@ -222,7 +232,7 @@ export default function Header() {
           <li className={`pt-4 border-t border-gray-200 dark:border-gray-700`}>
             <div className="flex items-center justify-center gap-4 mb-4">
               <ThemeToggle />
-              <LanguageToggle /> {/* تم استخدام LanguageToggle هنا أيضًا */}
+              <LanguageToggle /> 
             </div>
             <a
               href="/#contact"
@@ -230,9 +240,9 @@ export default function Header() {
                 e.preventDefault();
                 handleNavClick("/#contact", true);
               }}
-              className={`inline-block w-full text-center ${!scrolled ? "bg-[#D4AF37] hover:bg-[#C5A028]" : "bg-gradient-to-r from-primary to-accent"} text-white px-6 py-3 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
+              className={`inline-block w-full text-center ${!scrolled ? "bg-primary hover:bg-primary/90" : "bg-gradient-to-r from-primary to-accent"} text-white px-6 py-3 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
             >
-              {t("Start Project")} {/* استخدام دالة الترجمة t */}
+              {t("Start Project")}
             </a>
           </li>
         </ul>

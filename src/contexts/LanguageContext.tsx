@@ -39,6 +39,9 @@ const translations = {
     'about.values.integrity': 'Integrity - We build relationships based on trust and transparency',
     'about.values.collaboration': 'Collaboration - We work as partners with our clients to achieve shared goals',
     'about.learnMore': 'Learn More About Us',
+    'about.subtitle': 'Learn about our story, vision, and the exceptional team that makes digital transformation possible',
+    'about.team.title': 'Our Creative Team',
+    'about.team.subtitle': 'Meet the experts behind our successful projects',
 
     // Services Section
     'services.title': 'Our Services',
@@ -86,12 +89,12 @@ const translations = {
     'contact.title': 'Get In Touch',
     'contact.subtitle': 'Ready to start your digital transformation?',
     'contact.getInTouch': 'Stay Connected',
-    'contact.description': 'Have a project in mind or want to learn more about our services? We’re happy to connect with you. Please fill out the form or reach us directly via the contact information below.',
+    'contact.description': 'Have a project in mind or want to learn more about our services? We\'re happy to connect with you. Please fill out the form or reach us directly via the contact information below.',
     'contact.locations': 'Locations',
     'contact.egypt': 'Egypt',
     'contact.fayoumCairo': 'Fayoum / Cairo',
     'contact.saudi': 'Saudi Arabia',
-    'contact.riyadh': 'Riyadh',
+    'contact.riyadh': '7591 Al-Najah St, Riyadh',
     'contact.uae': 'UAE',
     'contact.dubai': 'Dubai',
     'contact.info': 'Contact Information',
@@ -135,7 +138,7 @@ const translations = {
     // Common
     'common.learnMore': 'Learn More',
     'common.viewAll': 'View All',
-    'common.getStarted': 'Get Started',
+    'common.getStarted': 'Get Started'
   },
   ar: {
     // Header
@@ -165,6 +168,9 @@ const translations = {
     'about.values.integrity': 'النزاهة - نبني علاقات قائمة على الثقة والشفافية',
     'about.values.collaboration': 'التعاون - نعمل كشركاء مع عملائنا لتحقيق الأهداف المشتركة',
     'about.learnMore': 'اعرف المزيد عنا',
+    'about.subtitle': 'تعرف على قصتنا ورؤيتنا وفريقنا المتميز الذي يجعل التحول الرقمي ممكنًا.',
+    'about.team.title': 'فريقنا الإبداعي',
+    'about.team.subtitle': 'تعرف على الخبراء الذين يقفون وراء نجاح مشاريعنا.',
 
     // Services Section
     'services.title': 'خدماتنا',
@@ -217,7 +223,7 @@ const translations = {
     'contact.egypt': 'مصر',
     'contact.fayoumCairo': 'الفيوم / القاهرة',
     'contact.saudi': 'المملكة العربية السعودية',
-    'contact.riyadh': 'الرياض',
+    'contact.riyadh': '7591 شارع النجاح , الرياض',
     'contact.uae': 'الإمارات العربية المتحدة',
     'contact.dubai': 'دبي',
     'contact.info': 'معلومات الاتصال',
@@ -258,27 +264,24 @@ const translations = {
     // Common
     'common.learnMore': 'اعرف المزيد',
     'common.viewAll': 'عرض الكل',
-    'common.getStarted': 'ابدأ الآن',
+    'common.getStarted': 'ابدأ الآن'
   }
 };
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem('language');
+    return saved === 'ar' || saved === 'en' ? saved : 'en';
+  });
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ar')) {
-      setLanguage(savedLanguage);
-      document.documentElement.setAttribute('lang', savedLanguage);
-      document.documentElement.setAttribute('dir', savedLanguage === 'ar' ? 'rtl' : 'ltr');
-    }
-  }, []);
+    document.documentElement.setAttribute('lang', language);
+    document.documentElement.setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
+  }, [language]);
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
     localStorage.setItem('language', lang);
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
   };
 
   const t = (key: string): string => {

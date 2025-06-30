@@ -137,7 +137,7 @@ export default function ContactSection() {
     href="https://wa.me/201050206655"
     target="_blank"
     rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center hover:bg-green-600 hover:text-white transition-colors"
+    className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
     aria-label="WhatsApp"
   >
 <svg
@@ -165,7 +165,7 @@ export default function ContactSection() {
         <div className="mt-12 h-80 rounded-lg overflow-hidden">
           <iframe
             title="Google Map Location"
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3455.683841430101!2d30.85899!3d29.309047!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xeb5f916e5fc939b9!2z2YXYs9in2YUg2KfZhNin2YTZiNmE2YrYqSDYp9mE2KrZiNmF2KzZitip!5e0!3m2!1sar!2seg!4v1716989231809!5m2!1sar!2seg"
+            src="https://www.google.com/maps?q=7591+Al-Najah+St,+Riyadh,+Saudi+Arabia&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}

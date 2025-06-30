@@ -178,213 +178,282 @@ export default function AllProjects() {
   });
 
   return (
-    <div className="bg-white dark:bg-gray-950 min-h-screen">
+    <div className="bg-white dark:bg-[#121212] min-h-screen overflow-x-hidden">
       <Header />
-      
-      <AnimationEffect animationType="fadeIn" delay={100}>
-        <section className="pt-32 pb-16 bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h1 className={`text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent ${
-                language === 'ar' ? 'font-arabic' : ''
-              }`}>
-                {language === 'ar' ? 'معرض أعمالنا' : 'Our Portfolio'}
-              </h1>
-              <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto ${
-                language === 'ar' ? 'font-arabic text-right' : ''
-              }`}>
-                {language === 'ar' 
-                  ? 'استكشف مجموعة من مشاريعنا الناجحة التي حققت نتائج استثنائية لعملائنا'
-                  : 'Explore our collection of successful projects that achieved exceptional results for our clients'
-                }
-              </p>
+
+      {/* New section from the image */}
+      <section className="bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className={`text-4xl md:text-5xl font-bold text-red-600 mb-6 ${language === 'ar' ? 'font-arabic' : 'font-poppins'}`}>
+            {language === 'ar' ? 'معرض أعمالنا' : 'Our Portfolio'}
+          </h2>
+          <p className={`text-lg md:text-xl text-gray-900 dark:text-white max-w-4xl mx-auto ${language === 'ar' ? 'font-arabic' : 'font-sans'}`}>
+            {language === 'ar' 
+              ? 'استكشف مجموعة من مشاريعنا الناجحة التي حققت نتائج استثنائية لعملائنا'
+              : 'Explore our collection of successful projects that achieved exceptional results for our clients'
+            }
+          </p>
+        </div>
+      </section>
+
+
+
+<section className="py-16">
+  <div className="container mx-auto px-4">
+    {/* Filters remain as is... */}
+
+    {/* Projects Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {filteredProjects.map((project, index) => (
+        <div
+          key={`${project.id}-${selectedServiceFilter}-${selectedIndustryFilter}`}
+          className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group"
+        >
+          <div className="relative overflow-hidden">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute top-4 right-4">
+              <span className="bg-white/90 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                {serviceTypes.find((type) => type.id === project.serviceType)?.name}
+              </span>
             </div>
           </div>
-        </section>
-      </AnimationEffect>
 
-      <AnimationEffect animationType="slideUp" delay={200}>
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            {/* Filters */}
-            <div className="mb-12 space-y-6">
-              {/* Service Type Filter */}
-              <div>
-                <h3 className={`text-lg font-semibold mb-4 ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
-                  {language === 'ar' ? 'تصفية حسب نوع الخدمة:' : 'Filter by Service Type:'}
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {serviceTypes.map((type) => (
-                    <Button
-                      key={type.id}
-                      onClick={() => setSelectedServiceFilter(type.id)}
-                      variant={selectedServiceFilter === type.id ? "default" : "outline"}
-                      className={`px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 ${
-                        language === 'ar' ? 'font-arabic' : ''
-                      } ${
-                        selectedServiceFilter === type.id 
-                          ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
-                          : 'hover:bg-primary/10'
-                      }`}
-                    >
-                      {type.name}
-                    </Button>
-                  ))}
-                </div>
+          <div className="p-8">
+            <h3 className={`text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300 ${language === 'ar' ? 'font-arabic text-right' : ''} text-gray-900 dark:text-white`}>
+              {project.title}
+            </h3>
+
+            <p className={`text-gray-900 dark:text-white mb-6 ${language === 'ar' ? 'font-arabic text-right leading-relaxed' : ''}`}>
+              {project.description}
+            </p>
+
+            {/* Project Details */}
+            <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+              <div className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                <Calendar className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                <span className={`${language === 'ar' ? 'font-arabic' : ''} text-gray-900 dark:text-white`}>{project.duration}</span>
               </div>
-
-              {/* Industry Filter */}
-              <div>
-                <h3 className={`text-lg font-semibold mb-4 ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
-                  {language === 'ar' ? 'تصفية حسب الصناعة:' : 'Filter by Industry:'}
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {industries.map((industry) => (
-                    <Button
-                      key={industry.id}
-                      onClick={() => setSelectedIndustryFilter(industry.id)}
-                      variant={selectedIndustryFilter === industry.id ? "default" : "outline"}
-                      className={`px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 ${
-                        language === 'ar' ? 'font-arabic' : ''
-                      } ${
-                        selectedIndustryFilter === industry.id 
-                          ? 'bg-gradient-to-r from-primary to-accent text-white shadow-lg' 
-                          : 'hover:bg-primary/10'
-                      }`}
-                    >
-                      {industry.name}
-                    </Button>
-                  ))}
-                </div>
+              <div className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                <Users className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                <span className="text-gray-900 dark:text-white">
+                  {project.teamSize} {language === 'ar' ? 'أعضاء' : 'members'}
+                </span>
               </div>
             </div>
 
-            {/* Projects Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {filteredProjects.map((project, index) => (
-                <AnimationEffect key={`${project.id}-${selectedServiceFilter}-${selectedIndustryFilter}`} animationType="scale" delay={index * 150}>
-                  <div className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-white/90 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                          {serviceTypes.find(type => type.id === project.serviceType)?.name}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="p-8">
-                      <h3 className={`text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300 ${
-                        language === 'ar' ? 'font-arabic text-right' : ''
-                      }`}>
-                        {project.title}
-                      </h3>
-                      
-                      <p className={`text-gray-600 dark:text-gray-300 mb-6 ${
-                        language === 'ar' ? 'font-arabic text-right leading-relaxed' : ''
-                      }`}>
-                        {project.description}
-                      </p>
+            {/* Technologies */}
+            <div className="mb-6">
+              <h4 className={`font-semibold mb-2 text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+                {language === 'ar' ? 'التقنيات المستخدمة:' : 'Technologies:'}
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech, techIndex) => (
+                  <span
+                    key={techIndex}
+                    className="bg-primary/10 text-gray-900 dark:text-white px-2 py-1 rounded-full text-xs font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-                      {/* Project Details */}
-                      <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
-                        <div className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
-                          <Calendar className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
-                          <span className={language === 'ar' ? 'font-arabic' : ''}>{project.duration}</span>
-                        </div>
-                        <div className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
-                          <Users className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
-                          <span>{project.teamSize} {language === 'ar' ? 'أعضاء' : 'members'}</span>
-                        </div>
-                      </div>
-
-                      {/* Technologies */}
-                      <div className="mb-6">
-                        <h4 className={`font-semibold mb-2 ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
-                          {language === 'ar' ? 'التقنيات المستخدمة:' : 'Technologies:'}
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, techIndex) => (
-                            <span
-                              key={techIndex}
-                              className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Key Features */}
-                      <div className="mb-6">
-                        <h4 className={`font-semibold mb-3 ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
-                          {language === 'ar' ? 'الميزات الرئيسية:' : 'Key Features:'}
-                        </h4>
-                        <div className="space-y-2">
-                          {project.features.map((feature, featureIndex) => (
-                            <div key={featureIndex} className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
-                              <div className={`w-2 h-2 bg-gradient-to-r from-primary to-accent rounded-full ${
-                                language === 'ar' ? 'ml-3' : 'mr-3'
-                              }`}></div>
-                              <span className={`text-sm text-gray-600 dark:text-gray-300 ${
-                                language === 'ar' ? 'font-arabic text-right' : ''
-                              }`}>
-                                {feature}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Results */}
-                      <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl">
-                        <h4 className={`font-semibold mb-3 flex items-center ${language === 'ar' ? 'flex-row-reverse font-arabic' : ''}`}>
-                          <Award className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
-                          {language === 'ar' ? 'النتائج المحققة:' : 'Achieved Results:'}
-                        </h4>
-                        <div className="grid grid-cols-1 gap-2 text-sm">
-                          {Object.values(project.results).map((result, resultIndex) => (
-                            <div key={resultIndex} className={`text-gray-600 dark:text-gray-300 ${
-                              language === 'ar' ? 'font-arabic text-right' : ''
-                            }`}>
-                              • {result}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <Button 
-                        className={`w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium transition-all duration-300 group-hover:scale-105 ${
-                          language === 'ar' ? 'font-arabic' : ''
-                        }`}
-                        onClick={() => window.open(project.link, '_blank')}
-                      >
-                        <ExternalLink className={`w-4 h-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
-                        {language === 'ar' ? 'عرض تفاصيل المشروع' : 'View Project Details'}
-                      </Button>
-                    </div>
+            {/* Key Features */}
+            <div className="mb-6">
+              <h4 className={`font-semibold mb-3 text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+                {language === 'ar' ? 'الميزات الرئيسية:' : 'Key Features:'}
+              </h4>
+              <div className="space-y-2">
+                {project.features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`w-2 h-2 bg-gradient-to-r from-primary to-accent rounded-full ${language === 'ar' ? 'ml-3' : 'mr-3'}`}></div>
+                    <span className={`text-sm text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+                      {feature}
+                    </span>
                   </div>
-                </AnimationEffect>
-              ))}
+                ))}
+              </div>
             </div>
 
-            {filteredProjects.length === 0 && (
-              <div className="text-center py-16">
-                <p className={`text-gray-500 text-lg ${language === 'ar' ? 'font-arabic' : ''}`}>
-                  {language === 'ar' ? 'لا توجد مشاريع تطابق الفلاتر المحددة' : 'No projects match the selected filters'}
-                </p>
+            {/* Results */}
+            <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl">
+              <h4 className={`font-semibold mb-3 flex items-center text-gray-900 dark:text-white ${language === 'ar' ? 'flex-row-reverse font-arabic' : ''}`}>
+                <Award className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+                {language === 'ar' ? 'النتائج المحققة:' : 'Achieved Results:'}
+              </h4>
+              <div className="grid grid-cols-1 gap-2 text-sm">
+                {Object.values(project.results).map((result, resultIndex) => (
+                  <div key={resultIndex} className={`text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+                    • {result}
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
+
+            <Button
+              className={`w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium transition-all duration-300 group-hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+              onClick={() => window.open(project.link, '_blank')}
+            >
+              <ExternalLink className={`w-4 h-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+              {language === 'ar' ? 'عرض تفاصيل المشروع' : 'View Project Details'}
+            </Button>
           </div>
-        </section>
-      </AnimationEffect>
+        </div>
+      ))}
+    </div>
+
+    {/* No projects found */}
+    {filteredProjects.length === 0 && (
+      <div className="text-center py-16">
+        <p className={`text-white text-lg ${language === 'ar' ? 'font-arabic' : ''}`}>
+          {language === 'ar' ? 'لا توجد مشاريع تطابق الفلاتر المحددة' : 'No projects match the selected filters'}
+        </p>
+      </div>
+    )}
+  </div>
+</section>
+
 
       <Footer />
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // فقط الجزء الخاص بعرض المشاريع دون AnimationEffect
+
+// <section className="py-16">
+//   <div className="container mx-auto px-4">
+//     {/* Filters remain as is... */}
+
+//     {/* Projects Grid */}
+//     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//       {filteredProjects.map((project, index) => (
+//         <div
+//           key={`${project.id}-${selectedServiceFilter}-${selectedIndustryFilter}`}
+//           className="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group"
+//         >
+//           <div className="relative overflow-hidden">
+//             <img
+//               src={project.image}
+//               alt={project.title}
+//               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+//             />
+//             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+//             <div className="absolute top-4 right-4">
+//               <span className="bg-white/90 text-primary px-3 py-1 rounded-full text-sm font-medium">
+//                 {serviceTypes.find((type) => type.id === project.serviceType)?.name}
+//               </span>
+//             </div>
+//           </div>
+
+//           <div className="p-8">
+//             <h3 className={`text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300 ${language === 'ar' ? 'font-arabic text-right' : ''} text-gray-900 dark:text-white`}>
+//               {project.title}
+//             </h3>
+
+//             <p className={`text-gray-900 dark:text-white mb-6 ${language === 'ar' ? 'font-arabic text-right leading-relaxed' : ''}`}>
+//               {project.description}
+//             </p>
+
+//             {/* Project Details */}
+//             <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
+//               <div className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+//                 <Calendar className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+//                 <span className={`${language === 'ar' ? 'font-arabic' : ''} text-gray-900 dark:text-white`}>{project.duration}</span>
+//               </div>
+//               <div className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+//                 <Users className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+//                 <span className="text-gray-900 dark:text-white">
+//                   {project.teamSize} {language === 'ar' ? 'أعضاء' : 'members'}
+//                 </span>
+//               </div>
+//             </div>
+
+//             {/* Technologies */}
+//             <div className="mb-6">
+//               <h4 className={`font-semibold mb-2 text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+//                 {language === 'ar' ? 'التقنيات المستخدمة:' : 'Technologies:'}
+//               </h4>
+//               <div className="flex flex-wrap gap-2">
+//                 {project.technologies.map((tech, techIndex) => (
+//                   <span
+//                     key={techIndex}
+//                     className="bg-primary/10 text-gray-900 dark:text-white px-2 py-1 rounded-full text-xs font-medium"
+//                   >
+//                     {tech}
+//                   </span>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Key Features */}
+//             <div className="mb-6">
+//               <h4 className={`font-semibold mb-3 text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+//                 {language === 'ar' ? 'الميزات الرئيسية:' : 'Key Features:'}
+//               </h4>
+//               <div className="space-y-2">
+//                 {project.features.map((feature, featureIndex) => (
+//                   <div key={featureIndex} className={`flex items-center ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+//                     <div className={`w-2 h-2 bg-gradient-to-r from-primary to-accent rounded-full ${language === 'ar' ? 'ml-3' : 'mr-3'}`}></div>
+//                     <span className={`text-sm text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+//                       {feature}
+//                     </span>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Results */}
+//             <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl">
+//               <h4 className={`font-semibold mb-3 flex items-center text-gray-900 dark:text-white ${language === 'ar' ? 'flex-row-reverse font-arabic' : ''}`}>
+//                 <Award className={`w-4 h-4 text-primary ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+//                 {language === 'ar' ? 'النتائج المحققة:' : 'Achieved Results:'}
+//               </h4>
+//               <div className="grid grid-cols-1 gap-2 text-sm">
+//                 {Object.values(project.results).map((result, resultIndex) => (
+//                   <div key={resultIndex} className={`text-gray-900 dark:text-white ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+//                     • {result}
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+
+//             <Button
+//               className={`w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-medium transition-all duration-300 group-hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+//               onClick={() => window.open(project.link, '_blank')}
+//             >
+//               <ExternalLink className={`w-4 h-4 ${language === 'ar' ? 'ml-2' : 'mr-2'}`} />
+//               {language === 'ar' ? 'عرض تفاصيل المشروع' : 'View Project Details'}
+//             </Button>
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+
+//     {/* No projects found */}
+//     {filteredProjects.length === 0 && (
+//       <div className="text-center py-16">
+//         <p className={`text-white text-lg ${language === 'ar' ? 'font-arabic' : ''}`}>
+//           {language === 'ar' ? 'لا توجد مشاريع تطابق الفلاتر المحددة' : 'No projects match the selected filters'}
+//         </p>
+//       </div>
+//     )}
+//   </div>
+// </section>

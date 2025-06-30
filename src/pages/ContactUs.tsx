@@ -1,4 +1,3 @@
-
 import { useState, FormEvent } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Header from "@/components/Header";
@@ -122,12 +121,12 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 min-h-screen">
+    <div className="bg-white dark:bg-[#121212] min-h-screen overflow-x-hidden">
       <Header />
 
       {/* Hero Section */}
       <section
-        className={`pt-32 pb-20 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden ${
+        className={`pt-32 pb-20 bg-gradient-to-br from-blue-50 via-background to-indigo-50 dark:from-dark-background dark:via-dark-card dark:to-dark-background relative overflow-hidden ${
           isRTL ? "text-right" : "text-left"
         }`}
         dir={isRTL ? "rtl" : "ltr"}
@@ -141,14 +140,14 @@ export default function ContactUs() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16 animate-fade-in">
             <h1
-              className={`text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent leading-tight ${
+              className={`text-5xl md:text-6xl font-bold mb-6 text-primary leading-tight ${
                 language === "ar" ? "font-arabic" : ""
               }`}
             >
               {t("contactPage.title")}
             </h1>
             <p
-              className={`text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed ${
+              className={`text-xl md:text-2xl text-foreground dark:text-dark-foreground max-w-4xl mx-auto leading-relaxed ${
                 language === "ar" ? "font-arabic" : ""
               }`}
             >
@@ -162,14 +161,14 @@ export default function ContactUs() {
       <section className="py-20 relative">
         <div className="container mx-auto px-4 max-w-3xl">
           <div
-            className={`bg-white dark:bg-gray-800 p-8 md:p-12 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-gray-900/50 animate-fade-in border border-gray-100 dark:border-gray-700 ${
+            className={`bg-card dark:bg-dark-card p-8 md:p-12 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-gray-900/50 animate-fade-in border border-gray-200 dark:border-gray-700 ${
               isRTL ? "text-right" : "text-left"
             }`}
             dir={isRTL ? "rtl" : "ltr"}
             style={{ animationDelay: '0.2s' }}
           >
             <div className="text-center mb-8">
-              <h2 className={`text-3xl font-bold text-gray-900 dark:text-white mb-4 ${language === "ar" ? "font-arabic" : ""}`}>
+              <h2 className={`text-3xl font-bold text-foreground dark:text-dark-foreground mb-4 ${language === "ar" ? "font-arabic" : ""}`}>
                 {language === 'ar' ? 'أرسل لنا رسالة' : 'Send us a message'}
               </h2>
               <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
@@ -180,7 +179,7 @@ export default function ContactUs() {
               <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
                 <Label
                   htmlFor="fullName"
-                  className={`text-lg font-semibold text-gray-700 dark:text-gray-200 ${language === "ar" ? "font-arabic" : ""}`}
+                  className={`text-lg font-semibold text-foreground dark:text-dark-foreground ${language === "ar" ? "font-arabic" : ""}`}
                 >
                   {t("contactForm.fullName")} <span className="text-red-500">*</span>
                 </Label>
@@ -206,7 +205,7 @@ export default function ContactUs() {
               <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
                 <Label
                   htmlFor="companyName"
-                  className={`text-lg font-semibold text-gray-700 dark:text-gray-200 ${language === "ar" ? "font-arabic" : ""}`}
+                  className={`text-lg font-semibold text-foreground dark:text-dark-foreground ${language === "ar" ? "font-arabic" : ""}`}
                 >
                   {t("contactForm.companyName")}
                 </Label>
@@ -227,7 +226,7 @@ export default function ContactUs() {
               <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
                 <Label
                   htmlFor="phoneNumber"
-                  className={`text-lg font-semibold text-gray-700 dark:text-gray-200 ${language === "ar" ? "font-arabic" : ""}`}
+                  className={`text-lg font-semibold text-foreground dark:text-dark-foreground ${language === "ar" ? "font-arabic" : ""}`}
                 >
                   {t("contactForm.phoneNumber")} <span className="text-red-500">*</span>
                 </Label>
@@ -253,7 +252,7 @@ export default function ContactUs() {
               <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
                 <Label
                   htmlFor="email"
-                  className={`text-lg font-semibold text-gray-700 dark:text-gray-200 ${language === "ar" ? "font-arabic" : ""}`}
+                  className={`text-lg font-semibold text-foreground dark:text-dark-foreground ${language === "ar" ? "font-arabic" : ""}`}
                 >
                   {t("contactForm.email")}
                 </Label>
@@ -274,7 +273,7 @@ export default function ContactUs() {
               <div className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
                 <Label
                   htmlFor="address"
-                  className={`text-lg font-semibold text-gray-700 dark:text-gray-200 ${language === "ar" ? "font-arabic" : ""}`}
+                  className={`text-lg font-semibold text-foreground dark:text-dark-foreground ${language === "ar" ? "font-arabic" : ""}`}
                 >
                   {t("contactForm.address")}
                 </Label>
@@ -295,7 +294,7 @@ export default function ContactUs() {
               <div className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
                 <Label
                   htmlFor="message"
-                  className={`text-lg font-semibold text-gray-700 dark:text-gray-200 ${language === "ar" ? "font-arabic" : ""}`}
+                  className={`text-lg font-semibold text-foreground dark:text-dark-foreground ${language === "ar" ? "font-arabic" : ""}`}
                 >
                   {t("contactForm.message")} <span className="text-red-500">*</span>
                 </Label>

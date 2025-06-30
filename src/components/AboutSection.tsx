@@ -6,42 +6,43 @@ export default function AboutSection() {
   const { t, language } = useLanguage();
 
   return (
-    <section id="about" className="section-padding bg-gray-50 dark:bg-gray-900">
+    <section id="about" className="section-padding bg-background dark:bg-dark-background">
       <div className="container mx-auto px-4">
-        <h2 className={`section-title mb-12 ${language === 'ar' ? 'font-arabic' : ''}`}>
+        {/* <h2 className={`section-title mb-12 ${language === 'ar' ? 'font-arabic' : ''} text-foreground dark:text-dark-foreground`}>
           {t('about.title')}
-        </h2>
+        </h2> */}
         <div className="flex flex-col lg:flex-row gap-10 items-center">
-          <div className="lg:w-1/2">
-            <div className="relative">
-              <div className="w-full h-80 md:h-96 lg:h-[500px] relative z-10 overflow-hidden rounded-lg">
-                <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3000"
-                  alt="E-Business Gate Team"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="absolute top-10 -left-10 w-64 h-64 bg-primary/20 rounded-full filter blur-3xl"></div>
-              <div className="absolute bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full filter blur-3xl"></div>
-            </div>
-          </div>
+      <div className="hidden md:block lg:w-1/2">
+  <div className="relative">
+    <div className="w-full h-80 md:h-96 lg:h-[500px] relative z-10 overflow-hidden rounded-lg">
+      <img
+        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80"
+        alt="E-Business Gate Team"
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <div className="absolute top-10 -left-10 w-64 h-64 bg-primary/20 rounded-full filter blur-3xl"></div>
+    <div className="absolute bottom-10 -right-10 w-64 h-64 bg-accent/20 rounded-full filter blur-3xl"></div>
+  </div>
+</div>
+
           
           <div className={`lg:w-1/2 ${language === 'ar' ? 'text-right' : ''}`}>
-            <h3 className={`text-2xl font-bold mb-4 text-primary ${language === 'ar' ? 'font-arabic' : ''}`}>
+            <h3 className={`text-2xl font-bold mb-4 text-primary ${language === 'ar' ? 'font-arabic' : ''} text-foreground dark:text-dark-foreground`}>
               {t('about.vision.title')}
             </h3>
-            <p className={`mb-6 ${language === 'ar' ? 'font-arabic leading-relaxed' : ''}`}>
+            <p className={`mb-6 ${language === 'ar' ? 'font-arabic leading-relaxed' : ''} text-secondary dark:text-dark-secondary`}>
               {t('about.vision.description')}
             </p>
             
-            <h3 className={`text-2xl font-bold mb-4 text-primary ${language === 'ar' ? 'font-arabic' : ''}`}>
+            <h3 className={`text-2xl font-bold mb-4 text-primary ${language === 'ar' ? 'font-arabic' : ''} text-foreground dark:text-dark-foreground`}>
               {t('about.mission.title')}
             </h3>
-            <p className={`mb-6 ${language === 'ar' ? 'font-arabic leading-relaxed' : ''}`}>
+            <p className={`mb-6 ${language === 'ar' ? 'font-arabic leading-relaxed' : ''} text-secondary dark:text-dark-secondary`}>
               {t('about.mission.description')}
             </p>
             
-            <h3 className={`text-2xl font-bold mb-4 text-primary ${language === 'ar' ? 'font-arabic' : ''}`}>
+            <h3 className={`text-2xl font-bold mb-4 text-primary ${language === 'ar' ? 'font-arabic' : ''} text-foreground dark:text-dark-foreground`}>
               {t('about.values.title')}
             </h3>
             <ul className="mb-8 space-y-2">
@@ -49,7 +50,7 @@ export default function AboutSection() {
   <li className={`flex items-center ${language === 'ar' ? 'justify-end font-arabic' : ''}`}>
     {language === 'ar' ? (
       <>
-        <span className="text-right leading-relaxed">
+        <span className="text-right leading-relaxed text-secondary dark:text-dark-secondary">
           {t('about.values.excellence')}
         </span>
         <span className="text-primary mr-2">✓</span>
@@ -57,7 +58,7 @@ export default function AboutSection() {
     ) : (
       <>
         <span className="text-primary mr-2">✓</span>
-        <span>
+        <span className="text-secondary dark:text-dark-secondary">
           {t('about.values.excellence')}
         </span>
       </>
@@ -68,7 +69,7 @@ export default function AboutSection() {
   <li className={`flex items-center ${language === 'ar' ? 'justify-end font-arabic' : ''}`}>
     {language === 'ar' ? (
       <>
-        <span className="text-right leading-relaxed">
+        <span className="text-right leading-relaxed text-secondary dark:text-dark-secondary">
           {t('about.values.innovation')}
         </span>
         <span className="text-primary mr-2">✓</span>
@@ -76,7 +77,7 @@ export default function AboutSection() {
     ) : (
       <>
         <span className="text-primary mr-2">✓</span>
-        <span>
+        <span className="text-secondary dark:text-dark-secondary">
           {t('about.values.innovation')}
         </span>
       </>
@@ -87,7 +88,7 @@ export default function AboutSection() {
   <li className={`flex items-center ${language === 'ar' ? 'justify-end font-arabic' : ''}`}>
     {language === 'ar' ? (
       <>
-        <span className="text-right leading-relaxed">
+        <span className="text-right leading-relaxed text-secondary dark:text-dark-secondary">
           {t('about.values.integrity')}
         </span>
         <span className="text-primary mr-2">✓</span>
@@ -95,7 +96,7 @@ export default function AboutSection() {
     ) : (
       <>
         <span className="text-primary mr-2">✓</span>
-        <span>
+        <span className="text-secondary dark:text-dark-secondary">
           {t('about.values.integrity')}
         </span>
       </>
@@ -106,7 +107,7 @@ export default function AboutSection() {
   <li className={`flex items-center ${language === 'ar' ? 'justify-end font-arabic' : ''}`}>
     {language === 'ar' ? (
       <>
-        <span className="text-right leading-relaxed">
+        <span className="text-right leading-relaxed text-secondary dark:text-dark-secondary">
           {t('about.values.collaboration')}
         </span>
         <span className="text-primary mr-2">✓</span>
@@ -114,7 +115,7 @@ export default function AboutSection() {
     ) : (
       <>
         <span className="text-primary mr-2">✓</span>
-        <span>
+        <span className="text-secondary dark:text-dark-secondary">
           {t('about.values.collaboration')}
         </span>
       </>

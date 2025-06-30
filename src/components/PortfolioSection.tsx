@@ -92,7 +92,7 @@ export default function PortfolioSection() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 activeCategory === category
                   ? "bg-primary text-white"
-                  : "bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  : "bg-gray-800 text-white hover:bg-primary/80 hover:text-white"
               } ${language === 'ar' ? 'font-arabic' : ''}`}
             >
               {category}
@@ -114,14 +114,14 @@ export default function PortfolioSection() {
                 <h3 className={`text-white text-xl font-bold ${language === 'ar' ? 'font-arabic' : ''}`}>
                   {project.title}
                 </h3>
-                <p className={`text-gray-200 text-sm mb-4 ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
+                <p className={`text-white text-sm mb-4 ${language === 'ar' ? 'font-arabic text-right' : ''}`}>
                   {project.category}
                 </p>
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-block w-full px-4 py-2 mt-2 bg-accent text-gray-800 rounded-md font-medium text-sm text-center ${
+                  className={`inline-block w-full px-4 py-2 mt-2 bg-accent text-white rounded-md font-medium text-sm text-center ${
                     language === 'ar' ? 'font-arabic' : ''
                   }`}
                 >
