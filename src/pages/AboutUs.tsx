@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import AnimationEffect from "@/components/AnimationEffect";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Github, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Twitter, User } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 
@@ -129,8 +129,8 @@ export default function AboutUs() {
       <AnimationEffect animationType="fadeIn" delay={100}>
         <section className="about-hero-section py-16 md:py-24 bg-background dark:bg-dark-background">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary">{t('about.title')}</h1>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8 text-foreground dark:text-dark-foreground">{t('about.subtitle')}</p>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-primary dark:text-white">{t('about.title')}</h1>
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto  text-foreground dark:text-gray-300">{t('about.subtitle')}</p>
           </div>
         </section>
       </AnimationEffect>
@@ -139,57 +139,31 @@ export default function AboutUs() {
     <AboutSection />
 
       <AnimationEffect animationType="stagger" delay={300}>
-        <section className="values-section py-16 bg-card dark:bg-dark-card">
+       <section className="py-16 bg-gray-50 dark:bg-gray-900">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-foreground dark:text-dark-foreground text-center">{t('about.values.title')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="p-6 rounded-xl bg-background dark:bg-dark-background shadow text-center">
-                <div className="mb-4 text-4xl">🏆</div>
-                <h3 className="text-xl font-bold mb-2 text-primary">{t('about.values.excellence')}</h3>
-                <p className="text-secondary dark:text-dark-secondary">{t('about.values.excellenceDesc')}</p>
-              </div>
-              <div className="p-6 rounded-xl bg-background dark:bg-dark-background shadow text-center">
-                <div className="mb-4 text-4xl">💡</div>
-                <h3 className="text-xl font-bold mb-2 text-primary">{t('about.values.innovation')}</h3>
-                <p className="text-secondary dark:text-dark-secondary">{t('about.values.innovationDesc')}</p>
-              </div>
-              <div className="p-6 rounded-xl bg-background dark:bg-dark-background shadow text-center">
-                <div className="mb-4 text-4xl">🤝</div>
-                <h3 className="text-xl font-bold mb-2 text-primary">{t('about.values.integrity')}</h3>
-                <p className="text-secondary dark:text-dark-secondary">{t('about.values.integrityDesc')}</p>
-              </div>
-              <div className="p-6 rounded-xl bg-background dark:bg-dark-background shadow text-center">
-                <div className="mb-4 text-4xl">🤝</div>
-                <h3 className="text-xl font-bold mb-2 text-primary">{t('about.values.collaboration')}</h3>
-                <p className="text-secondary dark:text-dark-secondary">{t('about.values.collaborationDesc')}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </AnimationEffect>
-
-      <AnimationEffect animationType="slideUp" delay={400}>
-        <section id="team" className="team-section py-16 bg-background dark:bg-dark-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-foreground dark:text-dark-foreground text-center">{t('about.team.title')}</h2>
-            <p className="mb-12 text-secondary dark:text-dark-secondary text-center">{t('about.team.subtitle')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {teamMembers.map((member, index) => (
+            <h2 className={`text-3xl font-bold text-center mb-6 ${language === 'ar' ? 'font-arabic' : ''} text-gray-800 dark:text-white`}>
+              {t('about.values.title')}
+            </h2>
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center text-center`} // Centered for all languages
+              dir={language === 'ar' ? 'rtl' : 'ltr'}
+            >
+              {[
+                { title: language === 'ar' ? 'التميز' : 'Excellence', description: t('about.values.excellence'), icon: '🏆' },
+                { title: language === 'ar' ? 'الابتكار' : 'Innovation', description: t('about.values.innovation'), icon: '💡' },
+                { title: 'Integrity', description: t('about.values.integrity'), icon: '🤝' },
+                { title: language === 'ar' ? 'التعاون' : 'Collaboration', description: t('about.values.collaboration'), icon: '👥' }
+              ].map((value, index) => (
                 <div
                   key={index}
-                  className="p-6 rounded-xl bg-card dark:bg-dark-card shadow text-center"
+                  className={`animate-stagger bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 text-center`} // Centered for all languages
                 >
-                  <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
-                    {member.name.charAt(0)}
-                  </div>
-                  <h3 className="text-lg font-bold mb-1 text-foreground dark:text-dark-foreground">
-                    {member.name}
+                  <div className="text-4xl mb-4 flex justify-center">{value.icon}</div> {/* Centered icon */}
+                  <h3 className={`text-xl font-bold mb-3 ${language === 'ar' ? 'font-arabic' : ''} text-gray-800 dark:text-white`}>
+                    {value.title}
                   </h3>
-                  <p className="text-secondary dark:text-dark-secondary mb-2">
-                    {member.position}
-                  </p>
-                  <p className="text-secondary dark:text-dark-secondary text-sm">
-                    {member.bio}
+                  <p className={`text-gray-600 dark:text-gray-300 ${language === 'ar' ? 'font-arabic' : ''}`}> {/* Removed text-right */}
+                    {value.description}
                   </p>
                 </div>
               ))}
@@ -198,13 +172,84 @@ export default function AboutUs() {
         </section>
       </AnimationEffect>
 
+      <AnimationEffect animationType="slideUp" delay={400}>
+        <section id="team" className="py-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className={`text-4xl font-bold mb-6 ${language === 'ar' ? 'font-arabic' : ''} text-gray-800 dark:text-white`}>
+                {language === 'ar' ? 'فريقنا الإبداعي' : 'Our Creative Team'}
+              </h2>
+              <p className={`text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto ${
+                language === 'ar' ? 'font-arabic' : '' // Removed text-right for centering
+              }`}>
+                {language === 'ar'
+                  ? 'تعرف على الخبراء الذين يقفون وراء نجاح مشاريعنا.'
+                  : 'Meet the experts behind our successful projects'
+                }
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 place-items-center"> {/* Changed to lg:grid-cols-3 for 3 per row */}
+              {teamMembers.map((member, index) => (
+                <div
+                  key={index}
+                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group w-full max-w-sm" // Added w-full max-w-sm for better responsiveness
+                >
+                  <div className="relative mb-6">
+                    {/* Updated Placeholder for team member image */}
+                    <div className="w-24 h-24 rounded-full mx-auto bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary dark:text-primary-foreground text-3xl overflow-hidden">
+                      {/* You can add initials or a generic icon here */}
+                      <User className="w-12 h-12" /> {/* Using Lucide React User icon */}
+                    </div>
+                    <div className="absolute inset-0 w-24 h-24 rounded-full mx-auto bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+
+                  <div className={`text-center`}> {/* Centered text for team members */}
+                    <h3 className={`text-xl font-bold mb-2 ${language === 'ar' ? 'font-arabic' : ''} text-gray-800 dark:text-white`}>
+                      {member.name}
+                    </h3>
+                    <p className={`text-primary font-medium mb-3 ${language === 'ar' ? 'font-arabic' : ''} dark:text-primary-lighter`}>
+                      {member.position}
+                    </p>
+                    <p className={`text-gray-600 dark:text-gray-300 text-sm mb-4 ${language === 'ar' ? 'font-arabic' : ''}`}>
+                      {member.bio}
+                    </p>
+
+                    <div className="flex justify-center gap-3">
+                      {member.social.linkedin && (
+                        <a href={member.social.linkedin} className="text-gray-400 hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary-lighter">
+                          <Linkedin className="w-5 h-5" />
+                        </a>
+                      )}
+                      {member.social.twitter && (
+                        <a href={member.social.twitter} className="text-gray-400 hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary-lighter">
+                          <Twitter className="w-5 h-5" />
+                        </a>
+                      )}
+                      {member.social.github && (
+                        <a href={member.social.github} className="text-gray-400 hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary-lighter">
+                          <Github className="w-5 h-5" />
+                        </a>
+                      )}
+                      <a href={`mailto:${member.social.email}`} className="text-gray-400 hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary-lighter">
+                        <Mail className="w-5 h-5" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </AnimationEffect>
+
       <AnimationEffect animationType="fadeIn" delay={500}>
-        <section className="py-16 bg-gray-50 dark:bg-[#181818] text-white dark:text-white">
+        <section className="py-16 bg-gray-50 dark:bg-[#181818]">
           <div className="container mx-auto px-4 text-center">
             <h2 className={`text-3xl font-bold mb-6 ${language === 'ar' ? 'font-arabic' : ''} text-primary dark:text-white`}>
               {language === 'ar' ? 'مستعد لبدء مشروعك؟' : 'Ready to Start Your Project?'}
             </h2>
-            <p className={`text-xl mb-8 opacity-95 ${language === 'ar' ? 'font-arabic' : ''} text-gray-900 dark:text-white`}>
+            <p className={`text-xl mb-8 opacity-95 ${language === 'ar' ? 'font-arabic' : ''} text-gray-900 dark:text-gray-300`}>
               {language === 'ar'
                 ? 'دعنا نساعدك في تحويل أفكارك إلى واقع رقمي.'
                 : 'Let us help you transform your ideas into digital reality'

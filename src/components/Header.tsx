@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageToggle } from "./LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Link, useLocation } from "react-router-dom";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import logoLight from '../assets/ie logo-red.png';
 import logoDark from '../assets/ie logo-red.png';
 
@@ -19,6 +19,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t, language } = useLanguage();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [isDarkMode, setIsDarkMode] = useState(
     document.documentElement.classList.contains("dark")
@@ -47,6 +48,22 @@ export default function Header() {
     };
   }, [language]);
 
+  // ✅ Scroll to section after navigating to home
+  useEffect(() => {
+    const scrollToId = sessionStorage.getItem("scrollToId");
+    if (scrollToId && location.pathname === "/") {
+      const interval = setInterval(() => {
+        const element = document.getElementById(scrollToId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          sessionStorage.removeItem("scrollToId");
+          clearInterval(interval);
+        }
+      }, 100);
+      return () => clearInterval(interval);
+    }
+  }, [location]);
+
   const navItems: NavItem[] = [
     { label: t("nav.home"), href: "/", key: "nav.home" },
     { label: t("nav.about"), href: "/about", key: "nav.about" },
@@ -59,18 +76,22 @@ export default function Header() {
 
   const handleNavClick = (href: string, isExternal = false) => {
     setMobileMenuOpen(false);
-    if (isExternal && href.startsWith("/#")) {
-      if (location.pathname !== "/") {
-        window.location.href = href;
-      } else {
-        const elementId = href.substring(2);
-        const element = document.querySelector(`#${elementId}`);
+    const isHashLink = isExternal && href.startsWith("/#");
+    const isSamePage = location.pathname === "/";
+    const targetId = href.replace("/#", "");
+
+    if (isHashLink) {
+      if (isSamePage) {
+        const element = document.getElementById(targetId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }
+      } else {
+        sessionStorage.setItem("scrollToId", targetId);
+        navigate("/");
       }
     }
-  }
+  };
 
   return (
     <header
@@ -86,29 +107,17 @@ export default function Header() {
         }`}
         style={{ direction: "ltr" }}
       >
-        {/* اللوجو */}
         <div className="flex items-center gap-3">
-          <Link
-            to="/"
-            className="flex items-center gap-3"
-          >
+          <Link to="/" className="flex items-center gap-3">
             <img
               src={isDarkMode ? logoDark : logoLight}
               alt="Logo"
               className="w-10 h-10 object-contain"
             />
-            <span
-              className={`text-3xl font-bold ${!scrolled ? "text-primary" : "bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"} transition-all duration-300 ${
-                language === "ar" ? "font-arabic" : ""
-              }`}
-            >
-              {/* يمكن إضافة نص اللوجو هنا */}
-            </span>
           </Link>
         </div>
 
-        {/* قائمة التنقل لسطح المكتب */}
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex flex-grow justify-center items-center">
           <ul className={`flex ${language === "ar" ? "flex-row-reverse" : ""} gap-1`}>
             {navItems.map((item, index) => (
               <li key={item.key} className="relative group">
@@ -119,10 +128,12 @@ export default function Header() {
                       e.preventDefault();
                       handleNavClick(item.href, true);
                     }}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group
-                      ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
-                      hover:text-primary hover:bg-primary/10
-                    `}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group ${
+                      location.pathname === item.href ||
+                      (item.isExternal && location.hash === item.href.substring(1))
+                        ? "text-primary font-bold underline bg-primary/10"
+                        : "text-primary"
+                    } hover:text-primary hover:bg-primary/10`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {item.label}
@@ -132,10 +143,11 @@ export default function Header() {
                   <Link
                     to={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group
-                      ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
-                      hover:text-primary hover:bg-primary/10
-                    `}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group ${
+                      location.pathname === item.href
+                        ? "text-primary font-bold underline bg-primary/10"
+                        : "text-primary"
+                    } hover:text-primary hover:bg-primary/10`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {item.label}
@@ -145,30 +157,30 @@ export default function Header() {
               </li>
             ))}
           </ul>
-
-          {/* العناصر المساعدة */}
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <LanguageToggle /> {/* تم تعديل هذا المكون ليظهر النص ويغير لونه */}
-            <a
-              href="/#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick("/#contact", true);
-              }}
-              className={`${!scrolled ? "bg-primary hover:bg-primary/90" : "bg-gradient-to-r from-primary to-accent"} text-white px-6 py-2 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
-            >
-              {t("Start Project")}
-            </a>
-          </div>
         </nav>
 
-        {/* قائمة الجوال - تظهر على الجانب الأيمن دائما */}
+        <div className="hidden lg:flex items-center gap-3">
+          <ThemeToggle />
+          <LanguageToggle />
+          <a
+            href="/#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick("/#contact", true);
+            }}
+            className={`${
+              !scrolled ? "bg-primary hover:bg-primary/90" : "bg-gradient-to-r from-primary to-accent"
+            } text-white px-6 py-2 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
+          >
+            {t("Start Project")}
+          </a>
+        </div>
+
         <div className="flex items-center gap-3 lg:hidden">
           <ThemeToggle />
-          <LanguageToggle /> {/* تم تعديل هذا المكون ليظهر النص ويغير لونه */}
+          <LanguageToggle />
           <button
-            className={`p-2 ${!scrolled ? "text-primary" : "text-foreground"} transition-all duration-300 hover:scale-110 hover:bg-primary/10 rounded-lg`}
+            className="p-2 text-primary transition-all duration-300 hover:scale-110 hover:bg-primary/10 rounded-lg"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -177,7 +189,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* قائمة الجوال */}
       <div
         className={`lg:hidden transition-all duration-500 overflow-hidden ${
           mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
@@ -193,10 +204,12 @@ export default function Header() {
                     e.preventDefault();
                     handleNavClick(item.href, true);
                   }}
-                  className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300
-                    ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
-                    hover:bg-primary/10 hover:text-primary
-                  `}
+                  className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                    location.pathname === item.href ||
+                    (item.isExternal && location.hash === item.href.substring(1))
+                      ? "text-primary font-bold underline bg-primary/10"
+                      : "text-primary"
+                  } hover:bg-primary/10 hover:text-primary`}
                   style={{
                     animationDelay: `${index * 50}ms`,
                     transform: mobileMenuOpen
@@ -211,10 +224,11 @@ export default function Header() {
                 <Link
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300
-                    ${location.pathname === item.href ? 'text-primary font-bold underline bg-primary/10' : (!scrolled ? 'text-primary' : 'text-foreground')}
-                    hover:bg-primary/10 hover:text-primary
-                  `}
+                  className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                    location.pathname === item.href
+                      ? "text-primary font-bold underline bg-primary/10"
+                      : "text-primary"
+                  } hover:bg-primary/10 hover:text-primary`}
                   style={{
                     animationDelay: `${index * 50}ms`,
                     transform: mobileMenuOpen
@@ -229,10 +243,10 @@ export default function Header() {
             </li>
           ))}
 
-          <li className={`pt-4 border-t border-gray-200 dark:border-gray-700`}>
+          <li className="pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-center gap-4 mb-4">
               <ThemeToggle />
-              <LanguageToggle /> 
+              <LanguageToggle />
             </div>
             <a
               href="/#contact"
@@ -240,7 +254,9 @@ export default function Header() {
                 e.preventDefault();
                 handleNavClick("/#contact", true);
               }}
-              className={`inline-block w-full text-center ${!scrolled ? "bg-primary hover:bg-primary/90" : "bg-gradient-to-r from-primary to-accent"} text-white px-6 py-3 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
+              className={`inline-block w-full text-center ${
+                !scrolled ? "bg-primary hover:bg-primary/90" : "bg-gradient-to-r from-primary to-accent"
+              } text-white px-6 py-3 rounded-full font-medium hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
             >
               {t("Start Project")}
             </a>
